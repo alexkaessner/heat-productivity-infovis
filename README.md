@@ -1,2 +1,6 @@
-# climate-change-infovis
-A information visualization of the climate change impact to growing cities and productivity for the population
+# Climate Change Information Visualization
+This is my final project for the [Information Visualization](https://incom.org/workspace/6609) course by [Prof. Dr. Marian Dörk](http://mariandoerk.de). It's a visualization of the climate impact for the increasing urbanization, population productivity and the increasing heat wave days in cities.
+
+## Including external Frameworks
+- [D3.js](https://d3js.org) (v3.5.17)
+- [Bootstrap](http://getbootstrap.com) (v3.3.6)
