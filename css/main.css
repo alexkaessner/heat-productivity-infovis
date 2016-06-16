@@ -1,5 +1,44 @@
 body {
   background-color: #362A35;
+}
+
+body, svg {
+	fill: white;
   color: white;
   font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2 {
+	text-align: center;
+}
+
+h1 {
+	font-size: 28px;
+	font-weight: 400;
+	text-transform: uppercase;
+	margin: 60px 0 0 0;
+}
+
+h2 {
+	font-size: 18px;
+	font-weight: normal;
+	opacity: 0.5;
+	margin: 5px 0 0 0;
+}
+
+.axis {
+	font-size: 14px;
+	opacity: 0.5;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 1;
+}
+
+.global-temperature-line {
+	fill: none;
+	stroke: #FA5E5E;
+	stroke-width: 2;
 }
