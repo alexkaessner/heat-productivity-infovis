@@ -26,6 +26,9 @@ h2 {
 	margin: 5px 0 0 0;
 }
 
+/* -------------------------------------------------------------------------- */
+/* GLOBAL TEMPERATURE CHART ------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
 .axis {
 	font-size: 14px;
 	opacity: 0.5;
@@ -41,4 +44,48 @@ h2 {
 	fill: none;
 	stroke: #FA5E5E;
 	stroke-width: 2;
+}
+
+/* -------------------------------------------------------------------------- */
+/* HEAT AND PRODUCTIVITY ---------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+.radar-chart .axis .legend.left {
+    text-anchor: end;
+}
+
+.radar-chart .axis .legend.right {
+    text-anchor: start;
+}
+
+.radar-chart .area {
+  fill-opacity: 0.7;
+}
+.radar-chart.focus .area {
+  fill-opacity: 0.3;
+}
+.radar-chart.focus .area.focused {
+  fill-opacity: 0.9;
+}
+
+.radar-chart .circle {
+  opacity: 0;
+}
+
+.radar-chart .circle:hover {
+  opacity: 1;
+}
+
+.radar-chart .axis .legend {
+    font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+}
+
+/* -------------------------------------------------------------------------- */
+.area.germany, .germany .circle {
+  fill: #AEFF55 !important;
+  stroke: none !important;
+}
+.area.argentina, .argentina .circle {
+  fill: #1EEEE0 !important;
+  stroke: none !important;
 }

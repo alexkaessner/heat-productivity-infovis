@@ -7,3 +7,4 @@ This is my final project for the [Information Visualization](https://incom.org/w
 ## Including external Frameworks
 - [D3.js](https://d3js.org) (v3.5.17)
 - [Bootstrap](http://getbootstrap.com) (v3.3.6)
+- [D3 Radar Chart](https://github.com/alangrafu/radar-chart-d3) (v1.2.1)
