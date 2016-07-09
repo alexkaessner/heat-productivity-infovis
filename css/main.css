@@ -81,11 +81,11 @@ h2 {
 }
 
 /* -------------------------------------------------------------------------- */
-.area.germany, .germany .circle {
+.area.Near, .Near .circle {
   fill: #AEFF55 !important;
   stroke: none !important;
 }
-.area.argentina, .argentina .circle {
+.area.Far, .Far .circle {
   fill: #1EEEE0 !important;
   stroke: none !important;
 }

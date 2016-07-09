@@ -41,33 +41,40 @@ d3.json("data/heat_productivity.json", function (error, data) {
 	if (error) return console.error(error);
 
 	// prepare the data
-	var citiesData = data.cities;
-	var selectedCityData = citiesData.london;
+	var selectedCityData = data.london;
 
 	//console.log(selectedCityData);
 
 	// RADAR CHART ---------------------------------------------------------------
 	// create data array for the radar chart
 	var obj = selectedCityData.lossNearWarm;
+  var chartData = [];
 	var lossNearWarmArray = [];
-	var lossFarWarmArray = [];
-  for(var key in obj){
-			if (key != "total") {
-				var axisData = {axis: key, value: obj[key]};
-				console.log(axisData);
-	      lossNearWarmArray.push(axisData);
-			}
+  for (var key in obj){
+    var axisData = {axis: key, value: obj[key]};
+    //console.log(axisData);
+    lossNearWarmArray.push(axisData);
   }
-	var chartData = {className: Object.keys(citiesData)[0], axes: lossNearWarmArray};
+
+  var obj2 = selectedCityData.lossFarWarm;
+  var chartData2 = [];
+	var lossFarWarmArray = [];
+  for (var key in obj2){
+    var axisData = {axis: key, value: obj2[key]};
+    //console.log(axisData);
+    lossFarWarmArray.push(axisData);
+  }
+  var arrayData = {className: "Near Future", axes: lossNearWarmArray};
+  var arrayData2 = {className: "Far Future", axes: lossFarWarmArray};
+	chartData.push(arrayData, arrayData2);
 
 	console.log(chartData);
-	console.log(testdata);
 
-	updateRadarChart();
+	updateRadarChart(chartData);
 });
 
 // draw the radar chart
-function updateRadarChart() {
+function updateRadarChart(selectedChartData) {
 	// configuring the attributes
 	chart.config({
 	    w: 320,
@@ -82,6 +89,6 @@ function updateRadarChart() {
 	svg.append('g')
 	    .classed('focus', 1)
 	    .attr('transform', 'translate(120,120)')
-	    .datum(testdata)
+	    .datum(selectedChartData)
 	    .call(chart);
 }
