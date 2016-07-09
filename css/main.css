@@ -130,6 +130,16 @@ img {
 
 /* -------------------------------------------------------------------------- */
 
+#line-chart-selection {
+  margin: 0px auto;
+  width: 1032px;
+  height: 310px;
+}
+
+#line-chart {
+  margin-top: -20px;
+}
+
 .line-chart-description {
   width: 420px;
   margin: 150px auto 30px auto;

@@ -2,14 +2,20 @@
 var updateDuration = 750;
 
 // IMPORT EXTERNAL SVG ---------------------------------------------------------
-// importing the little map selection SVG
+// little map selection
 d3.xml("graphics/map-selection.svg").mimeType("image/svg+xml").get(function(error, xml) {
   if (error) throw error;
   document.getElementById("map-selection").appendChild(xml.documentElement);
 });
 
+// detail on top of area chart
+d3.xml("graphics/line-chart-selection.svg").mimeType("image/svg+xml").get(function(error, xml) {
+  if (error) throw error;
+  document.getElementById("line-chart-selection").appendChild(xml.documentElement);
+});
+
 ////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////// AREA CHART ////////////////////////////////////
+//////////////////////////////// RADAR CHART ///////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 // basic setup of the SVG
@@ -81,8 +87,8 @@ function updateRadarChart(selectedChartData) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // basic setup of the SVG
-var margin = {top: 20, right: 20, bottom: 30, left: 60},
-    width = 960 - margin.left - margin.right,
+var margin = {top: 20, right: 5, bottom: 30, left: 45},
+    width = 1100 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var svg = d3.select('#line-chart').append('svg')
