@@ -89,3 +89,22 @@ h2 {
   fill: #1EEEE0 !important;
   stroke: none !important;
 }
+
+/* -------------------------------------------------------------------------- */
+
+.areaNear{
+  fill: #AEFF55;
+  opacity: 0.5;
+}
+.areaFar{
+  fill: #1EEEE0;
+  opacity: 0.5;
+}
+
+.y path.domain {
+  display: none;
+}
+
+.y .tick line {
+  opacity: 0.1;
+}

@@ -1,52 +1,24 @@
-// test data
-var testdata = [
-  {
-    className: 'germany', // optional, can be used for styling
-    axes: [
-      {axis: "Public administration and defence", value: 13.4, yOffset: 10},
-      {axis: "Agriculture, forestry and fishing", value: 6},
-      {axis: "Other Industry", value: 5},
-      {axis: "Manufacturing", value: 9},
-      {axis: "Construction", value: 8},
-      {axis: "Information and communication", value: 7},
-      {axis: "Wholesale and retail trade", value: 3},
-      {axis: "Financial and insurance activities", value: 2, xOffset: -20}
-    ]
-  },
-  {
-    className: 'argentina',
-    axes: [
-      {axis: "Public administration and defence", value: 6},
-      {axis: "Agriculture, forestry and fishing", value: 7},
-      {axis: "Other Industry", value: 10},
-      {axis: "Manufacturing", value: 13},
-      {axis: "Construction", value: 9},
-      {axis: "Information and communication", value: 4},
-      {axis: "Wholesale and retail trade", value: 6},
-      {axis: "Financial and insurance activities", value: 8}
-    ]
-  }
-];
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// AREA CHART ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-// Basic setup of the SVG
+// basic setup of the SVG
 var chart = RadarChart.chart();
 var chartData = [];
-var svg = d3.select('#heat-productivity').append('svg')
+var radarChartSvg = d3.select('#radar-chart').append('svg')
     .attr('width', 600)
-    .attr('height', 800);
+    .attr('height', 400);
 
 // -----------------------------------------------------------------------------
-// load the JSON file and draw the charts
+// load the JSON file and draw the chart
 d3.json("data/heat_productivity.json", function (error, data) {
 	if (error) return console.error(error);
 
 	// prepare the data
 	var selectedCityData = data.london;
 
-	//console.log(selectedCityData);
-
-	// RADAR CHART ---------------------------------------------------------------
-	// create data array for the radar chart
+	// ---------------------------------------------------------------------------
+	// create first data array for the radar chart
 	var obj = selectedCityData.lossNearWarm;
   var chartData = [];
 	var lossNearWarmArray = [];
@@ -56,20 +28,21 @@ d3.json("data/heat_productivity.json", function (error, data) {
     lossNearWarmArray.push(axisData);
   }
 
+  // create second data array
   var obj2 = selectedCityData.lossFarWarm;
   var chartData2 = [];
 	var lossFarWarmArray = [];
   for (var key in obj2){
     var axisData = {axis: key, value: obj2[key]};
-    //console.log(axisData);
     lossFarWarmArray.push(axisData);
   }
+
+  // move the two data arrays into one
   var arrayData = {className: "Near Future", axes: lossNearWarmArray};
   var arrayData2 = {className: "Far Future", axes: lossFarWarmArray};
 	chartData.push(arrayData, arrayData2);
 
-	console.log(chartData);
-
+  // call the draw
 	updateRadarChart(chartData);
 });
 
@@ -86,9 +59,154 @@ function updateRadarChart(selectedChartData) {
 	});
 
 	// drawing
-	svg.append('g')
+	radarChartSvg.append('g')
 	    .classed('focus', 1)
-	    .attr('transform', 'translate(120,120)')
+	    .attr('transform', 'translate(120,40)')
 	    .datum(selectedChartData)
 	    .call(chart);
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// LINE CHART ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// basic setup of the SVG
+var margin = {top: 20, right: 20, bottom: 30, left: 60},
+    width = 960 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+var svg = d3.select('#line-chart').append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// -----------------------------------------------------------------------------
+// preapare the chart axis
+var xScale = d3.scale.ordinal()
+              .rangeRoundBands([0, width], 0.1); //this creates rounded pixel values and includes a 10% (0.1) margin between the bars
+
+var yScale = d3.scale.linear()
+              .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("top")
+            .innerTickSize(0)
+            .outerTickSize(0)
+            .tickFormat("");
+
+var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .innerTickSize(-width)
+            .tickFormat(d3.format(","))
+            .ticks(10);
+
+// -----------------------------------------------------------------------------
+// load the JSON file and draw the chart
+d3.json("data/adverted_losses.json", function(data) {
+
+  var selectedCityData = data.totalLondon;
+  var selectedFuture = 0;
+  var selectedFutureArray = ["nearWarmFuture", "farWarmFuture"];
+
+  xScale.domain( data.categoryNames );
+  yScale.domain( [d3.max(selectedCityData.farWarmFuture, function (d){ return +d; }), 0] );
+
+  // DRAW AXIS -----------------------------------------------------------------
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  // DRAW CHART ----------------------------------------------------------------
+  var area = d3.svg.area()
+      .interpolate("basis")
+      .x(function(d, i) { return xScale(data.categoryNames[i]); })
+      .y1(function(d) { return yScale(d); });
+
+  svg.append("path")
+        .datum(selectedCityData.nearWarmFuture)
+        .attr("class", "areaNear")
+        .attr("d", area);
+
+  svg.append("path")
+        .datum(selectedCityData.farWarmFuture)
+        .attr("class", "areaFar")
+        .attr("d", area);
+
+  // create reference line
+  svg.append("line")
+        .attr("class", "referenceLine")
+        .attr("x1", 0)
+        .attr("y1", function() { return yScale(selectedCityData.farWarmLoss); })
+        .attr("x2", width)
+        .attr("y2", function() { return yScale(selectedCityData.farWarmLoss); })
+        .attr("stroke-width", 2)
+        .attr("stroke", "red");
+
+  // bar chart
+  /*svg.append("g").selectAll(".bar")
+        .data(selectedCityData.nearWarmFuture)
+        .enter()
+        .append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d, i) { console.log(data.categoryNames[i]); return xScale(data.categoryNames[i]); })
+          .attr("y", "0")
+          .attr("height", function(d) { return yScale(d); })
+          .attr("width", xScale.rangeBand());*/
+
+  // UPDATE CHART --------------------------------------------------------------
+  function updateChart(data) {
+
+    var updateDuration = 750;
+
+    // Scale the range of the data again
+    xScale.domain( data.categoryNames );
+    yScale.domain( [d3.max(selectedCityData.farWarmFuture, function (d){ return +d; }), 0] );
+
+    // Select the section we want to apply our changes to
+    var svg = d3.select("body").transition();
+
+    svg.selectAll(".referenceLine")
+          .duration(updateDuration)
+          .attr("y1", function() { return yScale(selectedCityData.nearWarmLoss); })
+          .attr("y2", function() { return yScale(selectedCityData.nearWarmLoss); });
+    /*svg.selectAll(".areaNear")
+          .duration(750)
+          .datum(selectedCityData.farWarmFuture)
+          .attr("d", area);*/
+    svg.select(".x.axis")
+        .duration(updateDuration)
+        .call(xAxis);
+    svg.select(".y.axis")
+        .duration(updateDuration)
+        .call(yAxis);
+  }
+
+  // CITY SELECTION ------------------------------------------------------------
+  d3.select("#nearButton").on("click", function(){
+          updateChart(data);
+  });
+
+  d3.select("#antwerp").on("click", function(){
+        selectedCityData = data.totalAntwerp;
+        updateChart(data);
+  });
+
+  d3.select("#bilbao").on("click", function(){
+        selectedCityData = data.totalBilbao;
+        updateChart(data);
+  });
+
+  d3.select("#london").on("click", function(){
+        selectedCityData = data.totalLondon;
+        updateChart(data);
+  });
+});
