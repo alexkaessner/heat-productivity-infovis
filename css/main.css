@@ -72,11 +72,6 @@ img {
   display: inline-block;
 }
 
-#map-selection{
-  display: inline-block;
-  float: right;
-}
-
 .radar-chart .axis .legend.left {
     text-anchor: end;
 }
@@ -106,6 +101,21 @@ img {
 .radar-chart .axis .legend {
     font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 10px;
+}
+
+#map-selection{
+  display: inline-block;
+  float: right;
+}
+
+#map-selection circle {
+  cursor: pointer;
+  transition: stroke-width 0.1s ease-out;
+}
+
+.active-dot {
+  stroke: rgba(30,238,223,0.50);
+  stroke-width: 15;
 }
 
 /* -------------------------------------------------------------------------- */

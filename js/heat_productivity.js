@@ -1,3 +1,13 @@
+// BASIC VARIABLES -------------------------------------------------------------
+var updateDuration = 750;
+
+// IMPORT EXTERNAL SVG ---------------------------------------------------------
+// importing the little map selection SVG
+d3.xml("graphics/map-selection.svg").mimeType("image/svg+xml").get(function(error, xml) {
+  if (error) throw error;
+  document.getElementById("map-selection").appendChild(xml.documentElement);
+});
+
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// AREA CHART ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -65,8 +75,6 @@ function updateRadarChart(selectedChartData) {
 	    .datum(selectedChartData)
 	    .call(chart);
 }
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// LINE CHART ////////////////////////////////////
@@ -165,7 +173,7 @@ d3.json("data/adverted_losses.json", function(data) {
   // UPDATE CHART --------------------------------------------------------------
   function updateChart(data) {
 
-    var updateDuration = 750;
+
 
     // Scale the range of the data again
     xScale.domain( data.categoryNames );
@@ -195,18 +203,24 @@ d3.json("data/adverted_losses.json", function(data) {
           updateChart(data);
   });
 
-  d3.select("#antwerp").on("click", function(){
+  d3.select("#antwerp-dot").on("click", function(){
         selectedCityData = data.totalAntwerp;
         updateChart(data);
+        d3.select(".active-dot").attr("class", "");
+        d3.select(this).attr("class", "active-dot");
   });
 
-  d3.select("#bilbao").on("click", function(){
+  d3.select("#bilbao-dot").on("click", function(){
         selectedCityData = data.totalBilbao;
         updateChart(data);
+        d3.select(".active-dot").attr("class", "");
+        d3.select(this).attr("class", "active-dot");
   });
 
-  d3.select("#london").on("click", function(){
+  d3.select("#london-dot").on("click", function(){
         selectedCityData = data.totalLondon;
         updateChart(data);
+        d3.select(".active-dot").attr("class", "");
+        d3.select(this).attr("class", "active-dot");
   });
 });
