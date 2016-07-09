@@ -8,22 +8,41 @@ body, svg {
   font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-h1, h2 {
+h1, h2, h3, p {
 	text-align: center;
 }
 
 h1 {
 	font-size: 28px;
-	font-weight: 400;
+	font-weight: 500;
 	text-transform: uppercase;
 	margin: 60px 0 0 0;
 }
 
 h2 {
 	font-size: 18px;
-	font-weight: normal;
+	font-weight: 400;
 	opacity: 0.5;
 	margin: 5px 0 0 0;
+}
+
+h3 {
+  font-size: 16px;
+	text-transform: uppercase;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+	opacity: 0.5;
+}
+
+img {
+  vertical-align: top;
+}
+
+.headline {
+  margin: 50px 20px;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -49,6 +68,15 @@ h2 {
 /* -------------------------------------------------------------------------- */
 /* HEAT AND PRODUCTIVITY ---------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
+#radar-chart{
+  display: inline-block;
+}
+
+#map-selection{
+  display: inline-block;
+  float: right;
+}
+
 .radar-chart .axis .legend.left {
     text-anchor: end;
 }
@@ -91,6 +119,11 @@ h2 {
 }
 
 /* -------------------------------------------------------------------------- */
+
+.line-chart-description {
+  width: 420px;
+  margin: 150px auto 30px auto;
+}
 
 .areaNear{
   fill: #AEFF55;
