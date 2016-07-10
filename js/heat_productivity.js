@@ -23,7 +23,9 @@ var chart = RadarChart.chart();
 var chartData = [];
 var radarChartSvg = d3.select('#radar-chart').append('svg')
     .attr('width', 600)
-    .attr('height', 400);
+    .attr('height', 400)
+		.append("g")
+			.attr('transform', 'translate(120,40)');
 
 
 var dataRadarChart;
@@ -86,9 +88,7 @@ function updateRadarChart(selectedChartData) {
 	});
 
 	// drawing
-	radarChartSvg
-	    .classed('focus', 1)
-	    .attr('transform', 'translate(120,40)')
+	radarChartSvg.classed('focus', 1)
 	    .datum(selectedChartData)
 	    .call(chart);
 }
