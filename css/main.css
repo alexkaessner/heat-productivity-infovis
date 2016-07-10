@@ -145,6 +145,18 @@ img {
   margin: 150px auto 30px auto;
 }
 
+.line-chart-dot {
+  opacity: 0;
+  cursor: pointer;
+  fill: #1EEEE0;
+  stroke: rgba(0,0,0,0.0);
+  stroke-width: 50;
+}
+
+.line-chart-dot:hover {
+  opacity: 1;
+}
+
 .areaNear{
   fill: #AEFF55;
   opacity: 0.5;

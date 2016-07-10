@@ -91,7 +91,7 @@ var margin = {top: 20, right: 5, bottom: 30, left: 45},
     width = 1100 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-var svg = d3.select('#line-chart').append('svg')
+var svg = d3.select('#line-chart').append('svg').attr("id", "line-chart-svg")
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append("g")
@@ -141,19 +141,35 @@ d3.json("data/adverted_losses.json", function(data) {
 
   // DRAW CHART ----------------------------------------------------------------
   var area = d3.svg.area()
-      .interpolate("basis")
+      .interpolate("cardinal")
       .x(function(d, i) { return xScale(data.categoryNames[i]); })
       .y1(function(d) { return yScale(d); });
-
-  svg.append("path")
-        .datum(selectedCityData.nearWarmFuture)
-        .attr("class", "areaNear")
-        .attr("d", area);
 
   svg.append("path")
         .datum(selectedCityData.farWarmFuture)
         .attr("class", "areaFar")
         .attr("d", area);
+
+  // Add the scatterplot
+    svg.selectAll("dot")
+        .data(selectedCityData.farWarmFuture)
+    .enter().append("circle")
+        .attr("class", "line-chart-dot")
+        .attr("r", 5)
+        .attr("cx", function(d, i) { return xScale(data.categoryNames[i]); })
+        .attr("cy", function(d) { return yScale(d); })
+        .on("mouseover", function(d, i) {
+            d3.select(this).classed("hover", true);
+            lineChartTooltip.style("opacity", 1);
+            console.log((parseInt(d3.select(this).attr("cx"))), (parseInt(d3.select(this).attr("cy"))));
+            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("cx")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("cy")) + margin.top - 20) + ")");
+            lineChartTooltip.select("text.line-chart-tooltip-h1").text(data.categoryNames[i]);
+            lineChartTooltip.select("text.line-chart-tooltip-text").text(d + " mio. €");
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).classed("hover", false);
+            lineChartTooltip.style("opacity", 0).attr("transform", "translate(0,0)");
+        });
 
   // create reference line
   svg.append("line")
@@ -163,18 +179,34 @@ d3.json("data/adverted_losses.json", function(data) {
         .attr("x2", width)
         .attr("y2", function() { return yScale(selectedCityData.farWarmLoss); })
         .attr("stroke-width", 2)
-        .attr("stroke", "red");
+        .attr("stroke", "#FA5E5E");
 
-  // bar chart
-  /*svg.append("g").selectAll(".bar")
-        .data(selectedCityData.nearWarmFuture)
-        .enter()
-        .append("rect")
-          .attr("class", "bar")
-          .attr("x", function(d, i) { console.log(data.categoryNames[i]); return xScale(data.categoryNames[i]); })
-          .attr("y", "0")
-          .attr("height", function(d) { return yScale(d); })
-          .attr("width", xScale.rangeBand());*/
+  // Define the div for the tooltip
+  var lineChartTooltip = d3.select("#line-chart-svg").append("g")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+  lineChartTooltip.append("rect")
+        .attr("width", 100)
+        .attr("height", 50)
+        .attr("x", "10")
+        .attr("y", "0")
+        .attr("fill", "white");
+
+  lineChartTooltip.append("text")
+        .attr("class", "line-chart-tooltip-h1")
+        .text("Section Name")
+        .attr("fill", "black")
+        .attr("x", "20")
+        .attr("y", "20");
+
+  lineChartTooltip.append("text")
+        .attr("class", "line-chart-tooltip-text")
+        .text("Section Name")
+        .attr("fill", "black")
+        .attr("x", "20")
+        .attr("y", "40");
+
 
   // UPDATE CHART --------------------------------------------------------------
   function updateChart(data) {
