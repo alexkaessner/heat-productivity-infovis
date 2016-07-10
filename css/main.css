@@ -45,24 +45,26 @@ img {
   margin: 50px 20px;
 }
 
-/* -------------------------------------------------------------------------- */
-/* GLOBAL TEMPERATURE CHART ------------------------------------------------- */
-/* -------------------------------------------------------------------------- */
-.axis {
-	font-size: 14px;
-	opacity: 0.5;
+section#urbanisation {
+	background-color: #3A3E57;
 }
 
-.axis path, .axis line {
-	fill: none;
-	stroke: #fff;
-	stroke-width: 1;
+#urbanisation-bottom {
+	width: 100%;
+	height: 52px;
+	background-image: url("../graphics/section1-bottom.svg");
+	background-repeat: repeat-x;
 }
 
-.global-temperature-line {
-	fill: none;
-	stroke: #FA5E5E;
-	stroke-width: 2;
+section#heat_days {
+	background-color: #32434A;
+}
+
+#heat_days-bottom {
+	width: 100%;
+	height: 240px;
+	background-image: url("../graphics/section2-bottom.svg");
+	background-repeat: repeat-x;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -70,6 +72,48 @@ img {
 /* -------------------------------------------------------------------------- */
 #radar-chart{
   display: inline-block;
+}
+
+#radar-chart-legend {
+	margin: auto;
+	width: 200px;
+}
+
+#radar-chart-legend p, #radar-chart-legend div {
+	display: inline-block;
+	font-size: 12px !important;
+  opacity: 1;
+}
+
+#radar-chart-legend div {
+	width: 10px;
+	height: 10px;
+}
+
+#radar-chart-legend .nearWarm {
+	background-image: linear-gradient(-180deg, rgba(30,238,223,0.50) 0%, rgba(30,238,223,0.00) 100%);
+	border: 2px solid #1EEEE0;
+}
+
+#radar-chart-legend .farWarm {
+	margin-left: 24px;
+	background-image: linear-gradient(-180deg, rgba(174,255,84,0.50) 0%, rgba(174,255,84,0.00) 100%);
+	border: 2px solid #AEFF55;
+}
+
+.radar-chart .tooltip {
+	pointer-events: none;
+}
+
+.radar-chart .tooltip rect {
+	fill: white !important;
+	opacity: 0.8 !important;
+}
+
+.radar-chart .tooltip text {
+	fill: black !important;
+	font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 12px;
 }
 
 .radar-chart .axis .legend.left {
@@ -81,31 +125,52 @@ img {
 }
 
 .radar-chart .area {
-  fill-opacity: 0.7;
+  fill-opacity: 0.75;
 }
 .radar-chart.focus .area {
   fill-opacity: 0.3;
 }
 .radar-chart.focus .area.focused {
-  fill-opacity: 0.9;
+  fill-opacity: 1;
 }
 
 .radar-chart .circle {
   opacity: 0;
+  stroke: rgba(0,0,0,0.0);
+  stroke-width: 0;
 }
-
 .radar-chart .circle:hover {
   opacity: 1;
+}
+
+.Near .circle {
+	fill: #1EEEE0 !important;
+}
+
+.Far .circle {
+	fill: #AEFF55 !important;
+}
+
+.area.Near {
+  fill: url(#near-warm-radar-gradient) !important;
+  stroke: none !important;
+}
+.area.Far {
+  fill: url(#far-warm-radar-gradient) !important;
+  stroke: none !important;
 }
 
 .radar-chart .axis .legend {
     font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 10px;
+		opacity: 0.5;
 }
 
+/* -------------------------------------------------------------------------- */
 #map-selection{
   display: inline-block;
   float: right;
+	padding-top: 50px;
 }
 
 #map-selection circle {
@@ -118,17 +183,18 @@ img {
   stroke-width: 15;
 }
 
-/* -------------------------------------------------------------------------- */
-.area.Near, .Near .circle {
-  fill: #AEFF55 !important;
-  stroke: none !important;
-}
-.area.Far, .Far .circle {
-  fill: #1EEEE0 !important;
-  stroke: none !important;
-}
 
 /* -------------------------------------------------------------------------- */
+.axis {
+	font-size: 10px;
+	opacity: .8;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 1;
+}
 
 #line-chart-selection {
   margin: 0px auto;
@@ -157,13 +223,17 @@ img {
   opacity: 1;
 }
 
-.areaNear{
-  fill: #AEFF55;
-  opacity: 0.5;
+.nearWarm{
+  fill: url(#near-warm-gradient);
+  opacity: 1;
+  stroke: url(#near-warm-gradient-stroke);
+  stroke-width: 2;
 }
-.areaFar{
-  fill: #1EEEE0;
-  opacity: 0.5;
+.farWarm{
+  fill: url(#far-warm-gradient);
+  opacity: 1;
+  stroke: url(#far-warm-gradient-stroke);
+  stroke-width: 2;
 }
 
 .y path.domain {

@@ -22,11 +22,41 @@ d3.xml("graphics/line-chart-selection.svg").mimeType("image/svg+xml").get(functi
 var chart = RadarChart.chart();
 var chartData = [];
 var radarChartSvg = d3.select('#radar-chart').append('svg')
-    .attr('width', 600)
+    .attr('width', 620)
     .attr('height', 400)
 		.append("g")
-			.attr('transform', 'translate(120,40)');
+			.attr('transform', 'translate(103,40)');
 
+// define the gradients
+var radarGradientFar = radarChartSvg.append("defs")
+	  .append("linearGradient")
+			.attr("id", "far-warm-radar-gradient")
+	    .attr("x1", "0%").attr("x2", "0%")
+	    .attr("y1", "0%").attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+radarGradientFar.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#AEFF55")
+	    .attr("stop-opacity", 1);
+radarGradientFar.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#AEFF55")
+	    .attr("stop-opacity", 0.5);
+
+var radarGradientNear = radarChartSvg.append("defs")
+	  .append("linearGradient")
+			.attr("id", "near-warm-radar-gradient")
+	    .attr("x1", "0%").attr("x2", "0%")
+	    .attr("y1", "0%").attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+radarGradientNear.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 1);
+radarGradientNear.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 0.5);
 
 var dataRadarChart;
 // -----------------------------------------------------------------------------
@@ -88,13 +118,12 @@ function updateRadarChart(selectedChartData) {
 	});
 
 	// drawing
-	radarChartSvg.classed('focus', 1)
-	    .datum(selectedChartData)
+	radarChartSvg.datum(selectedChartData)
 	    .call(chart);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////// LINE CHART ////////////////////////////////////
+//////////////////////////////// AREA CHART ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 // basic setup of the SVG
@@ -107,6 +136,75 @@ var svg = d3.select('#line-chart').append('svg').attr("id", "line-chart-svg")
     .attr('height', height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// define the gradients
+var gradientFar = svg.append("defs")
+	  .append("linearGradient")
+			.attr("id", "far-warm-gradient")
+	    .attr("x1", "0%").attr("x2", "0%")
+	    .attr("y1", "0%").attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+gradientFar.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#AEFF55")
+	    .attr("stop-opacity", 0.0);
+gradientFar.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#AEFF55")
+	    .attr("stop-opacity", 0.5);
+
+var gradientFarStroke = svg.append("defs")
+	  .append("linearGradient")
+			.attr("id", "far-warm-gradient-stroke")
+	    .attr("x1", "0%").attr("x2", "0%")
+	    .attr("y1", "0%").attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+gradientFarStroke.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#AEFF55")
+	    .attr("stop-opacity", 0.0);
+gradientFarStroke.append("stop")
+			.attr("offset", "10%")
+			.attr("stop-color", "#AEFF55")
+			.attr("stop-opacity", 1.0);
+gradientFarStroke.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#AEFF55")
+	    .attr("stop-opacity", 1.0);
+
+var gradientNear = svg.append("defs")
+	  .append("linearGradient")
+			.attr("id", "near-warm-gradient")
+	    .attr("x1", "0%").attr("x2", "0%")
+	    .attr("y1", "0%").attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+gradientNear.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 0.0);
+gradientNear.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 0.5);
+
+var gradientNearStroke = svg.append("defs")
+	  .append("linearGradient")
+			.attr("id", "near-warm-gradient-stroke")
+	    .attr("x1", "0%").attr("x2", "0%")
+	    .attr("y1", "0%").attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+gradientNearStroke.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 0.0);
+gradientNearStroke.append("stop")
+	    .attr("offset", "10%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 1.0);
+gradientNearStroke.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#1EEEE0")
+	    .attr("stop-opacity", 1.0);
 
 // -----------------------------------------------------------------------------
 // preapare the chart axis
@@ -202,6 +300,7 @@ function setupChart2(){
       .call(yAxis);
 
   // DRAW CHART ----------------------------------------------------------------
+	var areaChartOffset = 50;
   var area = d3.svg.area()
       .interpolate("cardinal")
       .x(function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
@@ -215,7 +314,8 @@ function setupChart2(){
 					}
 					return "areaAdvertedLosses nearWarm";
 				})
-        .attr("d", area);
+        .attr("d", area)
+				.attr("transform", "translate(" + areaChartOffset + ",0)");
 
   // Add the scatterplot
     svg.selectAll("dot")
@@ -223,7 +323,7 @@ function setupChart2(){
     .enter().append("circle")
         .attr("class", "line-chart-dot")
         .attr("r", 5)
-        .attr("cx", function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
+        .attr("cx", function(d, i) { return xScale(dataAreaChart.categoryNames[i]) + areaChartOffset; })
         .attr("cy", function(d) { return yScale(d); })
         .on("mouseover", function(d, i) {
             d3.select(this).classed("hover", true);
@@ -296,7 +396,7 @@ function updateChart() {
         .attr("y1", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); })
         .attr("y2", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); });
   svg.selectAll(".areaAdvertedLosses")
-        .duration(750)
+      	.duration(updateDuration)
 				.attr("class", function(){
 					if (detailLevel == "farWarmFuture") {
 						return "areaAdvertedLosses farWarm";
@@ -304,6 +404,12 @@ function updateChart() {
 					return "areaAdvertedLosses nearWarm";
 				})
         .attr("d", area(selectedCitydataAreaChart[detailLevel]));
+	/*svg.selectAll(".line-chart-dot")
+      .duration(updateDuration)
+	    .data(selectedCityData[detailLevel])
+			.enter()
+			.attr("cx", function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
+			.attr("cy", function(d) { return yScale(d); })*/
   svg.select(".x.axis")
       .duration(updateDuration)
       .call(xAxis);
