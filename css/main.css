@@ -8,6 +8,16 @@ body, svg {
   font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  text-decoration: underline;;
+}
+
 h1, h2, h3, p {
 	text-align: center;
 }
@@ -250,4 +260,44 @@ section#heat_days {
 
 .y .tick line {
   opacity: 0.1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* CLOSING ------------------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+
+#resume {
+  margin-top: 100px;
+  margin-bottom: 80px;
+}
+
+#resume .headline {
+  width: 500px;
+  margin: auto;
+}
+
+footer {
+  background-color: #1A1419;
+}
+
+footer h1, footer p, footer .copyright {
+  opacity: 0.5;
+}
+
+footer h1 {
+  padding-top: 78px;
+  font-size: 16px;
+}
+
+footer p {
+  margin: 25px auto 0 auto;
+  width: 350px;
+  font-size: 12px;
+}
+
+footer .copyright {
+  margin-top: 58px;
+  padding-bottom: 10px;
+  width: auto;
+  font-size: 10px;
 }
