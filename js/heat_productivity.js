@@ -81,10 +81,11 @@ function setupChart1(selectedCityData) {
   var i = 0;
   var axisTitles = dataRadarChart.axisLabels
   for (var key in obj){
-    var axisData = {axis: axisTitles[i], value: obj[key]};
-    //console.log(axisData);
-    lossNearWarmArray.push(axisData);
-    i++;
+    if (key != "total") {
+			var axisData = {axis: axisTitles[i], value: obj[key]};
+	    lossNearWarmArray.push(axisData);
+	    i++;
+    }
   }
 
   // create second data array
@@ -92,8 +93,10 @@ function setupChart1(selectedCityData) {
   var chartData2 = [];
 	var lossFarWarmArray = [];
   for (var key in obj2){
-    var axisData = {axis: key, value: obj2[key]};
-    lossFarWarmArray.push(axisData);
+		if (key != "total") {
+	    var axisData = {axis: key, value: obj2[key]};
+	    lossFarWarmArray.push(axisData);
+		}
   }
 
   // move the two data arrays into one
