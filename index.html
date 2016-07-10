@@ -14,22 +14,52 @@
 </head>
 
 <body>
-	<section class="container">
-    <div class="headline">
-      <h1>next to this cities are growing more and more…</h1>
-  		<h2>In everage cities are growing about X% every year. This will lead us to huge mega cities with lots of people and buildings.</h2>
-    </div>
-
-		<div id="radar-chart"></div>
-    <div id="map-selection"></div>
-    <div class="line-chart-description">
-      <h3>ADOPTING OUR LIVE TO ADVERT LOSSES</h3>
-      <p>As you can see the total amount of losses due to increasing heat days is growing. We can change this by adopting our working conditions.</p>
-    </div>
-    <div id="line-chart-selection"></div>
-    <div id="line-chart"></div>
-    <button id="nearButton" class="btn btn-warning">Near Warm Future</button><button id="farButton" class="btn btn-warning">Far Warm Future</button>
+	<section id="urbanisation">
+		<div class="container">
+			<div class="headline">
+	      <h1>urbanisation and growing cities is increasing over the last years</h1>
+	  		<h2>In everage cities are growing about <span>X%</span> every year. This will lead us to huge mega cities with lots of people and buildings.</h2>
+	    </div>
+		</div>
 	</section>
+
+	<section id="heat_days">
+		<div id="urbanisation-bottom"></div>
+		<div class="container">
+			<div class="headline">
+	      <h1>this leads to increased temperatures in cities</h1>
+	  		<h2>Compared to the land villages cities are <span>X%</span> hotter and the trend is increasing.</h2>
+	    </div>
+		</div>
+	</section>
+
+	<section id="heat_productivity">
+		<div id="heat_days-bottom"></div>
+		<div class="container">
+			<div class="headline">
+	      <h1>warmer cities effect the prodoctivity of the people</h1>
+	  		<h2>This will have dramatic impact on the following areas.</h2>
+	    </div>
+
+			<div id="radar-chart">
+				<h3>damage per sector for near and far future</h3>
+				<div id="radar-chart-legend">
+					<div class="nearWarm"></div>
+					<p>Near Future</p>
+					<div class="farWarm"></div>
+					<p>Far Future</p>
+				</div>
+			</div>
+	    <div id="map-selection"></div>
+	    <div class="line-chart-description">
+	      <h3>ADOPTING OUR LIVE TO ADVERT LOSSES</h3>
+	      <p>As you can see the total amount of losses due to increasing heat days is growing. We can change this by adopting our working conditions.</p>
+	    </div>
+	    <div id="line-chart-selection"></div>
+	    <div id="line-chart"></div>
+	    <button id="nearButton" class="btn btn-warning">Near Warm Future</button><button id="farButton" class="btn btn-warning">Far Warm Future</button>
+		</div>
+  </section>
 
 	<script src="js/heat_productivity.js"></script>
 </body>
