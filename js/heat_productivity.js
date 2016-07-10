@@ -209,7 +209,12 @@ function setupChart2(){
 
   svg.append("path")
         .datum(selectedCityData[detailLevel])
-        .attr("class", "areaFar")
+				.attr("class", function(){
+					if (detailLevel == "farWarmFuture") {
+						return "areaAdvertedLosses farWarm";
+					}
+					return "areaAdvertedLosses nearWarm";
+				})
         .attr("d", area);
 
   // Add the scatterplot
@@ -290,8 +295,14 @@ function updateChart() {
         .duration(updateDuration)
         .attr("y1", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); })
         .attr("y2", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); });
-  svg.selectAll(".areaFar")
+  svg.selectAll(".areaAdvertedLosses")
         .duration(750)
+				.attr("class", function(){
+					if (detailLevel == "farWarmFuture") {
+						return "areaAdvertedLosses farWarm";
+					}
+					return "areaAdvertedLosses nearWarm";
+				})
         .attr("d", area(selectedCitydataAreaChart[detailLevel]));
   svg.select(".x.axis")
       .duration(updateDuration)
