@@ -32,20 +32,40 @@ d3.json("data/urbanisation.json", function(error, data){
 				.attr("class", "y2030")
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
-				.attr("r", function(d){ return ((d.y2030 / populationFactor) * populationScaling); });
+				.attr("r", function(d){ return ((d.y2030 / populationFactor) * populationScaling); })
+				.on("mouseover", function(d, i){
+					d3.select("#id"+i).text("2030: " + d.y2030);
+				})
+				.on("mouseout", function(d, i){
+					d3.select("#id"+i).text(d.name);
+				});
 	circleGroup.append("circle")
 				.attr("class", "y1990")
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
-				.attr("r", function(d){ return ((d.y1990 / populationFactor) * populationScaling); });
+				.attr("r", function(d){ return ((d.y1990 / populationFactor) * populationScaling); })
+				.on("mouseover", function(d, i){
+					d3.select("#id"+i).text("1990: " + d.y1990);
+				})
+				.on("mouseout", function(d, i){
+					d3.select("#id"+i).text(d.name);
+				});
+
 	circleGroup.append("circle")
 				.attr("class", "y1950")
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
-				.attr("r", function(d){ return ((d.y1950 / populationFactor) * populationScaling); });
+				.attr("r", function(d){ return ((d.y1950 / populationFactor) * populationScaling); })
+				.on("mouseover", function(d, i){
+					d3.select("#id"+i).text("1950: " + d.y1950);
+				})
+				.on("mouseout", function(d, i){
+					d3.select("#id"+i).text(d.name);
+				});
 
 	circleGroup.append("text")
 				.text(function(d){ return d.name })
+				.attr("id", function(d, i){ return "id"+i;})
 				.attr("x", function(d){ return (d.location[0] * mapScaling); })
 				.attr("y", function(d){ return ((d.location[1] * mapScaling) - ((d.y2030 / populationFactor) * populationScaling) - 10); })
 				.style("text-anchor", "middle");
