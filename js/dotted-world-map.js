@@ -23,32 +23,30 @@ d3.json("data/urbanisation.json", function(error, data){
 	    .attr('height', 542)
 			.style("position", "absolute");
 
-	var cityCircle = svg.selectAll("circle")
+	var circleGroup = svg.selectAll("g")
 			.data(data)
-			.enter();
+			.enter()
+			.append("g");
 
-	cityCircle.append("circle")
+	circleGroup.append("circle")
 				.attr("class", "y2030")
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
 				.attr("r", function(d){ return ((d.y2030 / populationFactor) * populationScaling); });
-	cityCircle.append("circle")
+	circleGroup.append("circle")
 				.attr("class", "y1990")
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
 				.attr("r", function(d){ return ((d.y1990 / populationFactor) * populationScaling); });
-	cityCircle.append("circle")
+	circleGroup.append("circle")
 				.attr("class", "y1950")
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
 				.attr("r", function(d){ return ((d.y1950 / populationFactor) * populationScaling); });
 
-	svg.selectAll("text")
-				.data(data)
-				.enter()
-				.append("text")
-					.text(function(d){ return d.name })
-					.attr("x", function(d){ return (d.location[0] * mapScaling); })
-					.attr("y", function(d){ return ((d.location[1] * mapScaling) - ((d.y2030 / populationFactor) * populationScaling) - 10); })
-					.style("text-anchor", "middle");
+	circleGroup.append("text")
+				.text(function(d){ return d.name })
+				.attr("x", function(d){ return (d.location[0] * mapScaling); })
+				.attr("y", function(d){ return ((d.location[1] * mapScaling) - ((d.y2030 / populationFactor) * populationScaling) - 10); })
+				.style("text-anchor", "middle");
 });
