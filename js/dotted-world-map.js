@@ -42,4 +42,13 @@ d3.json("data/urbanisation.json", function(error, data){
 				.attr("cx", function(d){ return (d.location[0] * mapScaling); })
 				.attr("cy", function(d){ return (d.location[1] * mapScaling); })
 				.attr("r", function(d){ return ((d.y1950 / populationFactor) * populationScaling); });
+
+	svg.selectAll("text")
+				.data(data)
+				.enter()
+				.append("text")
+					.text(function(d){ return d.name })
+					.attr("x", function(d){ return (d.location[0] * mapScaling); })
+					.attr("y", function(d){ return ((d.location[1] * mapScaling) - ((d.y2030 / populationFactor) * populationScaling) - 10); })
+					.style("text-anchor", "middle");
 });
