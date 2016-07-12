@@ -32,8 +32,37 @@
 	      <h1>this leads to increased temperatures in cities</h1>
 	  		<h2>Compared to the land villages cities are <span>X%</span> hotter and the trend is increasing.</h2>
 	    </div>
+      <div>
+        <div class="heat-map-headline col-xs-4">Antwerp</div>
+        <div class="heat-map-headline col-xs-4" style="padding-left: 20px;">Bilbao</div>
+        <div class="heat-map-headline col-xs-4" style="padding-left: 30px;">London</div>
+      </div>
+      <div>
+        <div class="heat-map-container">
+          <img class="img-3" src="graphics/Antwerp.png" />
+          <img class="img-2" src="graphics/London.png" />
+          <img class="img-1" src="graphics/Bilbao.png" style="opacity: 0;" />
+        </div>
+        <div class="heat-map-container">
+          <img class="img-3" src="graphics/Antwerp.png" />
+          <img class="img-2" src="graphics/London.png" />
+          <img class="img-1" src="graphics/Bilbao.png" style="opacity: 0;" />
+        </div>
+        <div class="heat-map-container">
+          <img class="img-3" src="graphics/Antwerp.png" />
+          <img class="img-2" src="graphics/London.png" />
+          <img class="img-1" src="graphics/Bilbao.png" style="opacity: 0;" />
+        </div>
+
+        <input type="range"  min="0" max="200" oninput="sliderMoved(this.value)" />
+        <div class="slider-label">
+          <p>Today</p>
+          <p>Near Future</p>
+          <p>Far Future</p>
+        </div>
+      </div>
 		</div>
-	</section>
+  </section>
 
 	<section id="heat_productivity">
 		<div id="heat_days-bottom"></div>
@@ -77,6 +106,7 @@
   </footer>
 
   <script src="js/dotted-world-map.js"></script>
+  <script src="js/heat-wave-days.js"></script>
 	<script src="js/heat_productivity.js"></script>
 </body>
 </html>

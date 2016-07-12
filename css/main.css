@@ -108,6 +108,50 @@ section#heat_days {
 }
 
 /* -------------------------------------------------------------------------- */
+/* HEAT WAVE DAYS ----------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+.heat-map-headline {
+  display: inline-block;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.heat-map-container {
+  position: relative;
+  display: inline;
+  width: 300px;
+  height: 300px;
+  margin: 0 40px;
+}
+
+.heat-map-container .img-1, .heat-map-container .img-2 {
+  position: absolute;
+  left: 0px;
+}
+
+#heat_days input {
+  width: 340px;
+  margin: 80px auto 10px auto;
+}
+
+.slider-label {
+  width: 510px;
+  margin: 0px auto 80px auto;
+}
+
+.slider-label p {
+  font-size: 14px;
+  display: inline-block;
+  width: 166px;
+  padding: 0 5px;
+}
+
+/* -------------------------------------------------------------------------- */
 /* HEAT AND PRODUCTIVITY ---------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 #radar-chart{
