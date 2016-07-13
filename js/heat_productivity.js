@@ -2,6 +2,7 @@
 var updateDuration = 750;
 var dataNumberFactor = 1000000;
 var dataFormat = d3.format(",");
+var futureSwitchBool = 1;
 
 // IMPORT EXTERNAL SVG ---------------------------------------------------------
 // little map selection
@@ -139,9 +140,9 @@ function updateRadarChart(selectedChartData) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // basic setup of the SVG
-var margin = {top: 20, right: 5, bottom: 30, left: 50},
+var margin = {top: 20, right: 5, bottom: 80, left: 50},
     width = 1100 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    height = 350 - margin.top - margin.bottom;
 
 var svg = d3.select('#line-chart').append('svg').attr("id", "line-chart-svg")
     .attr('width', width + margin.left + margin.right)
@@ -259,15 +260,6 @@ d3.json("data/adverted_losses.json", function(data) {
   setupChart2();
 
   // CITY SELECTION ------------------------------------------------------------
-  d3.select("#nearButton").on("click", function(){
-      detailLevel = "nearWarmFuture";
-      updateChart();
-  });
-
-  d3.select("#farButton").on("click", function(){
-      detailLevel = "farWarmFuture";
-      updateChart();
-  });
 
   d3.select("#antwerp-dot").on("click", function(){
         selectedCitydataAreaChart = dataAreaChart.totalAntwerp;
@@ -405,6 +397,51 @@ function setupChart2(){
         .attr("fill", "black")
         .attr("x", "20")
         .attr("y", "40");
+
+
+  // drawing the future switch
+  var futureSwitch = d3.select("#line-chart-svg").append("g")
+        .attr("class", "future-switch")
+        .attr("transform", function(d) { return "translate(" + (width-180) + "," + (height + margin.top + 40) + ")"; });
+
+  futureSwitch.append("text")
+        .text("Near Future");
+
+  futureSwitch.append("g")
+        .attr("transform", "translate(95, -14)")
+        .on("click", function(d){
+          if (futureSwitchBool == 0) {
+            detailLevel = "farWarmFuture";
+            updateChart();
+            d3.select(this).select("circle").transition().duration(200).attr("cx", 30);
+            futureSwitchBool++;
+          }else {
+            detailLevel = "nearWarmFuture";
+            updateChart();
+            d3.select(this).select("circle").transition().duration(200).attr("cx", 10);
+            futureSwitchBool--;
+          }
+        })
+        .append("rect")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", 40)
+          .attr("height", 20)
+          .attr("rx", 10)
+          .attr("ry", 10)
+          .attr("stroke", "#fff")
+          .attr("stroke-width", 2)
+          .attr("fill", "#362A35");
+
+  futureSwitch.select("g")
+        .append("circle")
+        .attr("cx", 30)
+        .attr("cy", 10)
+        .attr("r", 7);
+
+  futureSwitch.append("text")
+        .text("Far Future")
+        .attr("x", 150);
 }
 
 // UPDATE AREA CHART -----------------------------------------------------------
