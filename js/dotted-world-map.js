@@ -19,7 +19,7 @@ d3.json("data/urbanisation.json", function(error, data){
 	if (error) return console.error(error);
 
 	// basic setup of the SVG
-	var svg = d3.select('#dotted-world-map').append('svg')
+	var svg = d3.select('#dotted-world-map').insert('svg', ":first-child")
 	    .attr('width', 1140)
 	    .attr('height', 542)
 			.style("position", "absolute");
