@@ -333,7 +333,7 @@ function setupChart2(){
         .attr("x1", 0)
         .attr("y1", 0)
         .attr("x2", 0)
-        .attr("y2", height+margin.bottom)
+        .attr("y2", height+10)
         .attr("stroke-width", 1)
         .attr("stroke", "#fff");
 
@@ -372,6 +372,71 @@ function setupChart2(){
         .attr("stroke-width", 2)
         .attr("stroke", "#FA5E5E");
 
+
+  // drawing the legend
+  svg.append("g")
+        .attr("class", "area-chart-legend")
+        .attr("transform", function(d) { return "translate(" + (width-110) + "," + (height-88) + ")"; })
+        .append("rect")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", 110)
+          .attr("height", 88+10) // +10 to hide the selection line behind
+          .attr("fill", "#362A35");
+
+  svg.select(".area-chart-legend")
+        .append("text")
+        .text("Loss per Sector")
+        .attr("x", 11)
+        .attr("y", 15)
+        .style("font-weight", "600");
+
+  svg.select(".area-chart-legend")
+        .append("rect")
+          .attr("x", 17)
+          .attr("y", 27)
+          .attr("width", 10)
+          .attr("height", 10)
+          .attr("stroke-width", 2)
+          .attr("stroke", "#AEFF55")
+          .attr("fill", "url(#far-warm-gradient)");
+
+  svg.select(".area-chart-legend")
+        .append("text")
+        .text("Far Future")
+        .attr("x", 34)
+        .attr("y", 36);
+
+  svg.select(".area-chart-legend")
+        .append("rect")
+          .attr("x", 17)
+          .attr("y", 47)
+          .attr("width", 10)
+          .attr("height", 10)
+          .attr("stroke-width", 2)
+          .attr("stroke", "#1EEEE0")
+          .attr("fill", "url(#near-warm-gradient)");
+
+  svg.select(".area-chart-legend")
+        .append("text")
+        .text("Near Future")
+        .attr("x", 34)
+        .attr("y", 57);
+
+  svg.select(".area-chart-legend")
+        .append("line")
+          .attr("x1", 16)
+          .attr("y1", 74)
+          .attr("x2", 28)
+          .attr("y2", 74)
+          .attr("stroke-width", 2)
+          .attr("stroke", "#FA5E5E");
+
+  svg.select(".area-chart-legend")
+        .append("text")
+        .text("No Adoption")
+        .attr("x", 34)
+        .attr("y", 78);
 
   // drawing the future switch
   var futureSwitch = d3.select("#line-chart-svg").append("g")

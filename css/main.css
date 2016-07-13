@@ -388,6 +388,10 @@ input[type=range]::-moz-range-thumb {
   opacity: 0.1;
 }
 
+.area-chart-legend text {
+  font-size: 12px;
+}
+
 .future-switch text {
   opacity: 0.5;
 }
