@@ -106,6 +106,10 @@ function setupChart1(selectedCityData) {
 
   // call the draw
 	updateRadarChart(chartData);
+
+	// update the legend labels
+	d3.select("#nearWarm-radar-label").html("Near Future Total: " + selectedCityData.lossNearWarm.total);
+	d3.select("#farWarm-radar-label").html("Far Future Total: " + selectedCityData.lossFarWarm.total);
 }
 
 // draw the radar chart
