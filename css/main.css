@@ -367,6 +367,11 @@ input[type=range]::-moz-range-thumb {
   opacity: 1;
 }
 
+.line-chart-tooltip-h1 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .nearWarm{
   fill: url(#near-warm-gradient);
   opacity: 1;

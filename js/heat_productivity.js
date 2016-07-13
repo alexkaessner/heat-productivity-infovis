@@ -348,10 +348,16 @@ function setupChart2(){
         .on("mouseover", function(d, i) {
             d3.select(this).classed("hover", true);
             lineChartTooltip.style("opacity", 1);
-            console.log((parseInt(d3.select(this).attr("cx"))), (parseInt(d3.select(this).attr("cy"))));
-            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("cx")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("cy")) + margin.top - 20) + ")");
+            //console.log((parseInt(d3.select(this).attr("cx"))), (parseInt(d3.select(this).attr("cy"))));
+            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("cx")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("cy")) + margin.top - 38) + ")");
             lineChartTooltip.select("text.line-chart-tooltip-h1").text(dataAreaChart.categoryNames[i]);
-            lineChartTooltip.select("text.line-chart-tooltip-text").text(dataFormat(d*dataNumberFactor) + "€");
+            lineChartTooltip.select("text.line-chart-tooltip-text").text(function() {
+              if (detailLevel == "farWarmFuture") {
+                  return "Far Warm Future:";
+              }
+              return "Near Warm Future:"
+            });
+            lineChartTooltip.select("text.line-chart-tooltip-text2").text(dataFormat(d*dataNumberFactor) + "€");
 						lineChartTooltipLine.style("opacity", 1)
 																.attr("x1", parseInt(d3.select(this).attr("cx")))
 																.attr("x2", parseInt(d3.select(this).attr("cx")));
@@ -489,25 +495,42 @@ function setupChart2(){
         .style("opacity", 0);
 
   lineChartTooltip.append("rect")
-        .attr("width", 100)
-        .attr("height", 50)
-        .attr("x", "10")
+        .attr("width", 10)
+        .attr("height", 10)
+        .attr("x", "26")
+        .attr("y", "18")
+        .attr("fill", "white")
+        .attr("transform", "rotate(45)");
+
+  lineChartTooltip.append("rect")
+        .attr("width", 155)
+        .attr("height", 80)
+        .attr("x", "6")
         .attr("y", "0")
+        .attr("rx", 5)
+        .attr("ry", 5)
         .attr("fill", "white");
 
   lineChartTooltip.append("text")
         .attr("class", "line-chart-tooltip-h1")
         .text("Section Name")
         .attr("fill", "black")
-        .attr("x", "20")
-        .attr("y", "20");
+        .attr("x", "15")
+        .attr("y", "25");
 
   lineChartTooltip.append("text")
         .attr("class", "line-chart-tooltip-text")
         .text("Section Name")
         .attr("fill", "black")
-        .attr("x", "20")
-        .attr("y", "40");
+        .attr("x", "15")
+        .attr("y", "50");
+
+  lineChartTooltip.append("text")
+        .attr("class", "line-chart-tooltip-text2")
+        .text("Section Value")
+        .attr("fill", "black")
+        .attr("x", "15")
+        .attr("y", "68");
 }
 
 // UPDATE AREA CHART -----------------------------------------------------------
