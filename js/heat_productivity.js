@@ -372,32 +372,6 @@ function setupChart2(){
         .attr("stroke-width", 2)
         .attr("stroke", "#FA5E5E");
 
-  // Define the div for the tooltip
-  var lineChartTooltip = d3.select("#line-chart-svg").append("g")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
-  lineChartTooltip.append("rect")
-        .attr("width", 100)
-        .attr("height", 50)
-        .attr("x", "10")
-        .attr("y", "0")
-        .attr("fill", "white");
-
-  lineChartTooltip.append("text")
-        .attr("class", "line-chart-tooltip-h1")
-        .text("Section Name")
-        .attr("fill", "black")
-        .attr("x", "20")
-        .attr("y", "20");
-
-  lineChartTooltip.append("text")
-        .attr("class", "line-chart-tooltip-text")
-        .text("Section Name")
-        .attr("fill", "black")
-        .attr("x", "20")
-        .attr("y", "40");
-
 
   // drawing the future switch
   var futureSwitch = d3.select("#line-chart-svg").append("g")
@@ -442,6 +416,33 @@ function setupChart2(){
   futureSwitch.append("text")
         .text("Far Future")
         .attr("x", 150);
+
+
+  // Define the div for the tooltip
+  var lineChartTooltip = d3.select("#line-chart-svg").append("g")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+  lineChartTooltip.append("rect")
+        .attr("width", 100)
+        .attr("height", 50)
+        .attr("x", "10")
+        .attr("y", "0")
+        .attr("fill", "white");
+
+  lineChartTooltip.append("text")
+        .attr("class", "line-chart-tooltip-h1")
+        .text("Section Name")
+        .attr("fill", "black")
+        .attr("x", "20")
+        .attr("y", "20");
+
+  lineChartTooltip.append("text")
+        .attr("class", "line-chart-tooltip-text")
+        .text("Section Name")
+        .attr("fill", "black")
+        .attr("x", "20")
+        .attr("y", "40");
 }
 
 // UPDATE AREA CHART -----------------------------------------------------------
