@@ -241,7 +241,7 @@ input[type=range]::-moz-range-thumb {
 	border: 2px solid #AEFF55;
 }
 
-.radar-chart .tooltip {
+.radar-chart .tooltip, #line-chart .tooltip-line, #line-chart .tooltip {
 	pointer-events: none;
 }
 

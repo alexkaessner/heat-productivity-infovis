@@ -334,6 +334,17 @@ function setupChart2(){
         .attr("d", area)
 				.attr("transform", "translate(" + areaChartOffset + ",0)");
 
+	// create the tooltip line
+  var lineChartTooltipLine = svg.append("line")
+        .attr("class", "tooltip-line")
+        .style("opacity", 0)
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", 0)
+        .attr("y2", height+margin.bottom)
+        .attr("stroke-width", 1)
+        .attr("stroke", "#fff");
+
   // Add the scatterplot
     svg.selectAll("dot")
         .data(selectedCityData[detailLevel])
@@ -349,10 +360,14 @@ function setupChart2(){
             lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("cx")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("cy")) + margin.top - 20) + ")");
             lineChartTooltip.select("text.line-chart-tooltip-h1").text(dataAreaChart.categoryNames[i]);
             lineChartTooltip.select("text.line-chart-tooltip-text").text(dataFormat(d*dataNumberFactor) + "€");
+						lineChartTooltipLine.style("opacity", 1)
+																.attr("x1", parseInt(d3.select(this).attr("cx")))
+																.attr("x2", parseInt(d3.select(this).attr("cx")));
         })
         .on("mouseout", function(d) {
             d3.select(this).classed("hover", false);
             lineChartTooltip.style("opacity", 0).attr("transform", "translate(0,0)");
+						lineChartTooltipLine.style("opacity", 0);
         });
 
   // create reference line
