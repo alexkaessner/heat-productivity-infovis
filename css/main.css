@@ -1,5 +1,6 @@
 body {
   background-color: #362A35;
+	-webkit-font-smoothing: antialiased;
 }
 
 body, svg {
@@ -38,6 +39,7 @@ h2 {
 
 h3 {
   font-size: 16px;
+	font-weight: 600;
 	text-transform: uppercase;
 }
 
@@ -407,6 +409,7 @@ footer h1, footer p, footer .copyright {
 footer h1 {
   padding-top: 78px;
   font-size: 16px;
+	font-weight: 600;
 }
 
 footer p {
