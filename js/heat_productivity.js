@@ -1,5 +1,7 @@
 // BASIC VARIABLES -------------------------------------------------------------
 var updateDuration = 750;
+var dataNumberFactor = 1000000;
+var dataFormat = d3.format(",");
 
 // IMPORT EXTERNAL SVG ---------------------------------------------------------
 // little map selection
@@ -108,8 +110,8 @@ function setupChart1(selectedCityData) {
 	updateRadarChart(chartData);
 
 	// update the legend labels
-	d3.select("#nearWarm-radar-label").html("Near Future Total: " + selectedCityData.lossNearWarm.total);
-	d3.select("#farWarm-radar-label").html("Far Future Total: " + selectedCityData.lossFarWarm.total);
+	d3.select("#nearWarm-radar-label").html("Near Future Total: " + selectedCityData.lossNearWarm.total + "m €");
+	d3.select("#farWarm-radar-label").html("Far Future Total: " + selectedCityData.lossFarWarm.total + "m €");
 }
 
 // draw the radar chart
@@ -122,6 +124,9 @@ function updateRadarChart(selectedChartData) {
 	    factorLegend: 1.2,  // relative position for the text labels
 	    levels: 0,          // number of circles inside the chart
 	    radius: 5,          // circle radius
+			tooltipFormatValue: function(d) {
+		    return dataFormat(d*dataNumberFactor) + "€";
+		  }
 	});
 
 	// drawing
@@ -134,7 +139,7 @@ function updateRadarChart(selectedChartData) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // basic setup of the SVG
-var margin = {top: 20, right: 5, bottom: 30, left: 45},
+var margin = {top: 20, right: 5, bottom: 30, left: 50},
     width = 1100 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
@@ -232,7 +237,12 @@ var yAxis = d3.svg.axis()
             .scale(yScale)
             .orient("left")
             .innerTickSize(-width)
-            .tickFormat(d3.format(","))
+            .tickFormat(function(d){
+							if (d == 0) {
+								return "0";
+							}
+							return dataFormat(d) + "m €";
+						})
             .ticks(10);
 
 
@@ -338,7 +348,7 @@ function setupChart2(){
             console.log((parseInt(d3.select(this).attr("cx"))), (parseInt(d3.select(this).attr("cy"))));
             lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("cx")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("cy")) + margin.top - 20) + ")");
             lineChartTooltip.select("text.line-chart-tooltip-h1").text(dataAreaChart.categoryNames[i]);
-            lineChartTooltip.select("text.line-chart-tooltip-text").text(d + " mio. €");
+            lineChartTooltip.select("text.line-chart-tooltip-text").text(dataFormat(d*dataNumberFactor) + "€");
         })
         .on("mouseout", function(d) {
             d3.select(this).classed("hover", false);
