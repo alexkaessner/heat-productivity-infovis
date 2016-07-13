@@ -127,6 +127,7 @@ section#heat_days {
   width: 300px;
   height: 300px;
   margin: 0 40px;
+	opacity: 0.7;
 }
 
 .heat-map-container .img-1, .heat-map-container .img-2 {
@@ -136,7 +137,7 @@ section#heat_days {
 
 #heat_days input {
   width: 340px;
-  margin: 80px auto 10px auto;
+  margin: 80px auto 15px auto;
 }
 
 .slider-label {
@@ -149,6 +150,59 @@ section#heat_days {
   display: inline-block;
   width: 166px;
   padding: 0 5px;
+}
+
+/* basci styles for slider override ----------------------------------------- */
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+/* custom base for slider --------------------------------------------------- */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  background: #ffffff;
+  border: none;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  background: #ffffff;
+  border: 0.2px solid #010101;
+}
+
+/* custom knob for slider --------------------------------------------------- */
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 7.5px;
+  background: #ffffff;
+  cursor: auto;
+  margin-top: -7px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  border: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 7.5px;
+  background: #ffffff;
+  cursor: auto;
 }
 
 /* -------------------------------------------------------------------------- */
