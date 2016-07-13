@@ -283,6 +283,10 @@ input[type=range]::-moz-range-thumb {
   opacity: 1;
 }
 
+.radar-chart .level {
+	opacity: 0.2;
+}
+
 .Near .circle {
 	fill: #1EEEE0 !important;
 }

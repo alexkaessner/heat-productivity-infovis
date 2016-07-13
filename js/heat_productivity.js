@@ -122,7 +122,7 @@ function updateRadarChart(selectedChartData) {
 	    h:320,
 	    factor: 1,          // scaling for the inner chart
 	    factorLegend: 1.2,  // relative position for the text labels
-	    levels: 0,          // number of circles inside the chart
+	    levels: 5,          // number of circles inside the chart
 	    radius: 5,          // circle radius
 			tooltipFormatValue: function(d) {
 		    return dataFormat(d*dataNumberFactor) + "€";
