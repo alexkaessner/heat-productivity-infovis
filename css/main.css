@@ -358,13 +358,17 @@ input[type=range]::-moz-range-thumb {
 .line-chart-dot {
   opacity: 0;
   cursor: pointer;
-  fill: #1EEEE0;
+  fill: #AEFF55;
   stroke: rgba(0,0,0,0.0);
   stroke-width: 50;
 }
 
 .line-chart-dot:hover {
   opacity: 1;
+}
+
+.nearWarmDot {
+  fill: #1EEEE0 !important;
 }
 
 .line-chart-tooltip-h1 {

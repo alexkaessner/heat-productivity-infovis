@@ -337,11 +337,13 @@ function setupChart2(){
         .attr("stroke-width", 1)
         .attr("stroke", "#fff");
 
+  console.log(selectedCityData[detailLevel]);
   // Add the scatterplot
     svg.selectAll("dot")
         .data(selectedCityData[detailLevel])
     .enter().append("circle")
         .attr("class", "line-chart-dot")
+        .attr("id", function(d, i){ return "dot"+i; })
         .attr("r", 5)
         .attr("cx", function(d, i) { return xScale(dataAreaChart.categoryNames[i]) + areaChartOffset; })
         .attr("cy", function(d) { return yScale(d); })
@@ -562,12 +564,20 @@ function updateChart() {
 					return "areaAdvertedLosses nearWarm";
 				})
         .attr("d", area(selectedCitydataAreaChart[detailLevel]));
-	/*svg.selectAll(".line-chart-dot")
-      .duration(updateDuration)
-	    .data(selectedCityData[detailLevel])
-			.enter()
-			.attr("cx", function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
-			.attr("cy", function(d) { return yScale(d); })*/
+
+  selectedCitydataAreaChart[detailLevel].forEach(function(e, i){
+    console.log(e);
+    d3.selectAll("#dot"+i)
+        .classed("nearWarmDot", function (d, i) {
+          if (detailLevel == "farWarmFuture") {
+						return false;
+					}
+					return true;
+        })
+        .transition()
+        .duration(updateDuration)
+        .attr("cy", function(d) { return yScale(e); });
+  })
   svg.select(".x.axis")
       .duration(updateDuration)
       .call(xAxis);
