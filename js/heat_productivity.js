@@ -29,7 +29,7 @@ var radarChartSvg = d3.select('#radar-chart').append('svg')
     .attr('width', 620)
     .attr('height', 400)
 		.append("g")
-			.attr('transform', 'translate(103,40)');
+			.attr('transform', 'translate(120,40)');
 
 // define the gradients
 var radarGradientFar = radarChartSvg.append("defs")
@@ -352,13 +352,14 @@ function setupChart2(){
   // FUTURE SWITCH -------------------------------------------------------------
   var futureSwitch = d3.select("#line-chart-svg").append("g")
         .attr("class", "future-switch")
-        .attr("transform", function(d) { return "translate(" + (width-180) + "," + (height + margin.top + 40) + ")"; });
+        .attr("transform", function(d) { return "translate(" + (width-140) + "," + (height + margin.top + 40) + ")"; });
 
   futureSwitch.append("text")
-        .text("Near Future");
+        .text("Near Future")
+				.attr("font-size", 12);
 
   futureSwitch.append("g")
-        .attr("transform", "translate(95, -14)")
+        .attr("transform", "translate(85, -14)")
         .on("click", function(d){
           if (futureSwitchBool == 0) {
             detailLevel = "farWarmFuture";
@@ -391,7 +392,8 @@ function setupChart2(){
 
   futureSwitch.append("text")
         .text("Far Future")
-        .attr("x", 150);
+				.attr("font-size", 12)
+        .attr("x", 140);
 
 
 	// TOOLTIP -------------------------------------------------------------------

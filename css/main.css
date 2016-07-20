@@ -31,7 +31,7 @@ h1 {
 }
 
 h2 {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 400;
 	opacity: 0.5;
 	margin: 5px 0 0 0;
@@ -110,7 +110,7 @@ section#heat_days {
 }
 
 #dotted-world-map text {
-	font-size: 16px;
+	font-size: 14px;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -124,6 +124,8 @@ section#heat_days {
   text-transform: uppercase;
   margin-top: 20px;
   margin-bottom: 20px;
+	padding-left: 40px;
+	padding-right: 47px;
   opacity: 0.5;
 }
 
@@ -230,8 +232,8 @@ input[type=range]::-moz-range-thumb {
 }
 
 #radar-chart-legend div {
-	width: 10px;
-	height: 10px;
+	width: 8px;
+	height: 8px;
 }
 
 #radar-chart-legend .nearWarm {
@@ -308,7 +310,7 @@ input[type=range]::-moz-range-thumb {
 
 .radar-chart .axis .legend {
     font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 10px;
+    font-size: 12px;
 		opacity: 0.5;
 }
 
@@ -332,8 +334,7 @@ input[type=range]::-moz-range-thumb {
 
 /* -------------------------------------------------------------------------- */
 .axis {
-	font-size: 10px;
-	opacity: .8;
+	font-size: 12px;
 }
 
 .axis path, .axis line {
