@@ -3,6 +3,7 @@ var updateDuration = 750;
 var dataNumberFactor = 1000000;
 var dataFormat = d3.format(",");
 var futureSwitchBool = 1;
+var barChartBarOffset = 80;
 
 // IMPORT EXTERNAL SVG ---------------------------------------------------------
 // little map selection
@@ -140,7 +141,7 @@ function updateRadarChart(selectedChartData) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // basic setup of the SVG
-var margin = {top: 20, right: 5, bottom: 80, left: 50},
+var margin = {top: 20, right: 0, bottom: 80, left: 70},
     width = 1100 - margin.left - margin.right,
     height = 350 - margin.top - margin.bottom;
 
@@ -153,7 +154,7 @@ var svg = d3.select('#line-chart').append('svg').attr("id", "line-chart-svg")
 // -----------------------------------------------------------------------------
 // preapare the chart axis
 var xScale = d3.scale.ordinal()
-              .rangeRoundBands([0, width], 0.7); //this creates rounded pixel values and includes a 10% (0.1) margin between the bars
+              .rangeRoundBands([0, width+barChartBarOffset], 0.7); //this creates rounded pixel values and includes a 10% (0.1) margin between the bars
 
 var yScale = d3.scale.linear()
               .range([height, 0]);
@@ -254,15 +255,14 @@ function setupChart2(){
 					}
 					return "bar areaAdvertedLosses nearWarm";
 				})
-				.attr("x", function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
+				.attr("x", function(d, i) { return (xScale(dataAreaChart.categoryNames[i]) - (barChartBarOffset/2)); })
 				.attr("y", 0)
 				.attr("width", xScale.rangeBand())
 				.attr("height", function(d) { return yScale(d); })
 				.on("mouseover", function(d, i) {
             d3.select(this).classed("hover", true);
             lineChartTooltip.style("opacity", 1);
-            //console.log((parseInt(d3.select(this).attr("cx"))), (parseInt(d3.select(this).attr("cy"))));
-            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("x")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("y")) + margin.top - 38) + ")");
+            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("x")) + (parseInt(d3.select(this).attr("width"))/2) + margin.left - 77.5) + "," + (parseInt(d3.select(this).attr("height")) + margin.top + 5) + ")");
             lineChartTooltip.select("text.line-chart-tooltip-h1").text(dataAreaChart.categoryNames[i]);
             lineChartTooltip.select("text.line-chart-tooltip-text").text(function() {
               if (detailLevel == "farWarmFuture") {
@@ -288,7 +288,7 @@ function setupChart2(){
         .attr("stroke", "#FA5E5E");
 
 
-  // drawing the legend
+	// LEGEND --------------------------------------------------------------------
   svg.append("g")
         .attr("class", "area-chart-legend")
         .attr("transform", function(d) { return "translate(" + (width-120) + "," + (height-88) + ")"; })
@@ -349,7 +349,7 @@ function setupChart2(){
         .attr("x", 34)
         .attr("y", 78);
 
-  // drawing the future switch
+  // FUTURE SWITCH -------------------------------------------------------------
   var futureSwitch = d3.select("#line-chart-svg").append("g")
         .attr("class", "future-switch")
         .attr("transform", function(d) { return "translate(" + (width-180) + "," + (height + margin.top + 40) + ")"; });
@@ -394,7 +394,7 @@ function setupChart2(){
         .attr("x", 150);
 
 
-  // Define the div for the tooltip
+	// TOOLTIP -------------------------------------------------------------------
   var lineChartTooltip = d3.select("#line-chart-svg").append("g")
         .attr("class", "tooltip")
         .style("opacity", 0);
@@ -402,16 +402,16 @@ function setupChart2(){
   lineChartTooltip.append("rect")
         .attr("width", 10)
         .attr("height", 10)
-        .attr("x", "26")
-        .attr("y", "18")
-        .attr("fill", "white")
-        .attr("transform", "rotate(45)");
+        .attr("transform", "rotate(45)")
+        .attr("x", "55")
+        .attr("y", "-55")
+        .attr("fill", "white");
 
   lineChartTooltip.append("rect")
         .attr("width", 155)
         .attr("height", 80)
-        .attr("x", "6")
-        .attr("y", "0")
+        .attr("x", "0")
+        .attr("y", "6")
         .attr("rx", 5)
         .attr("ry", 5)
         .attr("fill", "white");
@@ -420,22 +420,22 @@ function setupChart2(){
         .attr("class", "line-chart-tooltip-h1")
         .text("Section Name")
         .attr("fill", "black")
-        .attr("x", "15")
-        .attr("y", "25");
+        .attr("x", "9")
+        .attr("y", "28");
 
   lineChartTooltip.append("text")
         .attr("class", "line-chart-tooltip-text")
         .text("Section Name")
         .attr("fill", "black")
-        .attr("x", "15")
-        .attr("y", "50");
+        .attr("x", "9")
+        .attr("y", "53");
 
   lineChartTooltip.append("text")
         .attr("class", "line-chart-tooltip-text2")
         .text("Section Value")
         .attr("fill", "black")
-        .attr("x", "15")
-        .attr("y", "68");
+        .attr("x", "9")
+        .attr("y", "71");
 }
 
 // UPDATE AREA CHART -----------------------------------------------------------
