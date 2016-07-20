@@ -226,14 +226,12 @@ d3.json("data/adverted_losses.json", function(data) {
 // SETUP AREA CHART ------------------------------------------------------------
 function setupChart2(){
 
-  //var selectedCityData = data.totalLondon;
-  selectedCityData = selectedCitydataAreaChart;
   var selectedFuture = 0;
 
-	// selectedCityData.farWarmFuture == selectedCityData[„farWarmFuture“]
+	// selectedCitydataAreaChart.farWarmFuture == selectedCitydataAreaChart[„farWarmFuture“]
 	// this allows me to select the far or near future via a string/variable
   xScale.domain( dataAreaChart.categoryNames );
-  yScale.domain( [d3.max(selectedCityData["nearWarmFuture"], function (d){ return +d*1.1; }), 0] );
+  yScale.domain( [d3.max(selectedCitydataAreaChart["nearWarmFuture"], function (d){ return +d*1.1; }), 0] );
 
   // DRAW AXIS -----------------------------------------------------------------
   svg.append("g")
@@ -246,7 +244,7 @@ function setupChart2(){
 
   // DRAW CHART ----------------------------------------------------------------
 	var barChart = svg.selectAll(".bar")
-				.data(selectedCityData[detailLevel])
+				.data(selectedCitydataAreaChart[detailLevel])
 				.enter()
 				.append("rect")
 				.attr("class", function(){
@@ -270,7 +268,7 @@ function setupChart2(){
               }
               return "Near Warm Future:"
             });
-            lineChartTooltip.select("text.line-chart-tooltip-text2").text(dataFormat(selectedCityData[detailLevel][i]*dataNumberFactor) + "€");
+            lineChartTooltip.select("text.line-chart-tooltip-text2").text(dataFormat(selectedCitydataAreaChart[detailLevel][i]*dataNumberFactor) + "€");
         })
         .on("mouseout", function(d) {
             d3.select(this).classed("hover", false);
@@ -281,9 +279,9 @@ function setupChart2(){
   svg.append("line")
         .attr("class", "referenceLine")
         .attr("x1", 0)
-        .attr("y1", function() { return yScale(selectedCityData.farWarmLoss); })
+        .attr("y1", function() { return yScale(selectedCitydataAreaChart.farWarmLoss); })
         .attr("x2", width)
-        .attr("y2", function() { return yScale(selectedCityData.farWarmLoss); })
+        .attr("y2", function() { return yScale(selectedCitydataAreaChart.farWarmLoss); })
         .attr("stroke-width", 2)
         .attr("stroke", "#FA5E5E");
 
