@@ -235,14 +235,12 @@ input[type=range]::-moz-range-thumb {
 }
 
 #radar-chart-legend .nearWarm {
-	background-image: linear-gradient(-180deg, rgba(30,238,223,0.50) 0%, rgba(30,238,223,0.00) 100%);
-	border: 2px solid #1EEEE0;
+	background-image: linear-gradient(-180deg, rgba(30,238,223,1.00) 0%, rgba(30,238,223,0.50) 100%);
 }
 
 #radar-chart-legend .farWarm {
 	margin-left: 24px;
-	background-image: linear-gradient(-180deg, rgba(174,255,84,0.50) 0%, rgba(174,255,84,0.00) 100%);
-	border: 2px solid #AEFF55;
+	background-image: linear-gradient(-180deg, rgba(174,255,84,1.00) 0%, rgba(174,255,84,0.50) 100%);
 }
 
 .radar-chart .tooltip, #line-chart .tooltip-line, #line-chart .tooltip {
@@ -368,17 +366,20 @@ input[type=range]::-moz-range-thumb {
   font-weight: 600;
 }
 
+.bar {
+	opacity: 0.6;
+	cursor: pointer;
+}
+
+.bar:hover {
+	opacity: 1;
+}
+
 .nearWarm{
-  fill: url(#near-warm-gradient);
-  opacity: 1;
-  stroke: url(#near-warm-gradient-stroke);
-  stroke-width: 2;
+  fill: url(#near-warm-radar-gradient);
 }
 .farWarm{
-  fill: url(#far-warm-gradient);
-  opacity: 1;
-  stroke: url(#far-warm-gradient-stroke);
-  stroke-width: 2;
+  fill: url(#far-warm-radar-gradient);
 }
 
 .y path.domain {

@@ -150,75 +150,6 @@ var svg = d3.select('#line-chart').append('svg').attr("id", "line-chart-svg")
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// define the gradients
-var gradientFar = svg.append("defs")
-	  .append("linearGradient")
-			.attr("id", "far-warm-gradient")
-	    .attr("x1", "0%").attr("x2", "0%")
-	    .attr("y1", "0%").attr("y2", "100%")
-	    .attr("spreadMethod", "pad");
-gradientFar.append("stop")
-	    .attr("offset", "0%")
-	    .attr("stop-color", "#AEFF55")
-	    .attr("stop-opacity", 0.0);
-gradientFar.append("stop")
-	    .attr("offset", "100%")
-	    .attr("stop-color", "#AEFF55")
-	    .attr("stop-opacity", 0.5);
-
-var gradientFarStroke = svg.append("defs")
-	  .append("linearGradient")
-			.attr("id", "far-warm-gradient-stroke")
-	    .attr("x1", "0%").attr("x2", "0%")
-	    .attr("y1", "0%").attr("y2", "100%")
-	    .attr("spreadMethod", "pad");
-gradientFarStroke.append("stop")
-	    .attr("offset", "0%")
-	    .attr("stop-color", "#AEFF55")
-	    .attr("stop-opacity", 0.0);
-gradientFarStroke.append("stop")
-			.attr("offset", "10%")
-			.attr("stop-color", "#AEFF55")
-			.attr("stop-opacity", 1.0);
-gradientFarStroke.append("stop")
-	    .attr("offset", "100%")
-	    .attr("stop-color", "#AEFF55")
-	    .attr("stop-opacity", 1.0);
-
-var gradientNear = svg.append("defs")
-	  .append("linearGradient")
-			.attr("id", "near-warm-gradient")
-	    .attr("x1", "0%").attr("x2", "0%")
-	    .attr("y1", "0%").attr("y2", "100%")
-	    .attr("spreadMethod", "pad");
-gradientNear.append("stop")
-	    .attr("offset", "0%")
-	    .attr("stop-color", "#1EEEE0")
-	    .attr("stop-opacity", 0.0);
-gradientNear.append("stop")
-	    .attr("offset", "100%")
-	    .attr("stop-color", "#1EEEE0")
-	    .attr("stop-opacity", 0.5);
-
-var gradientNearStroke = svg.append("defs")
-	  .append("linearGradient")
-			.attr("id", "near-warm-gradient-stroke")
-	    .attr("x1", "0%").attr("x2", "0%")
-	    .attr("y1", "0%").attr("y2", "100%")
-	    .attr("spreadMethod", "pad");
-gradientNearStroke.append("stop")
-	    .attr("offset", "0%")
-	    .attr("stop-color", "#1EEEE0")
-	    .attr("stop-opacity", 0.0);
-gradientNearStroke.append("stop")
-	    .attr("offset", "10%")
-	    .attr("stop-color", "#1EEEE0")
-	    .attr("stop-opacity", 1.0);
-gradientNearStroke.append("stop")
-	    .attr("offset", "100%")
-	    .attr("stop-color", "#1EEEE0")
-	    .attr("stop-opacity", 1.0);
-
 // -----------------------------------------------------------------------------
 // preapare the chart axis
 var xScale = d3.scale.ordinal()
@@ -360,11 +291,11 @@ function setupChart2(){
   // drawing the legend
   svg.append("g")
         .attr("class", "area-chart-legend")
-        .attr("transform", function(d) { return "translate(" + (width-110) + "," + (height-88) + ")"; })
+        .attr("transform", function(d) { return "translate(" + (width-120) + "," + (height-88) + ")"; })
         .append("rect")
           .attr("x", 0)
           .attr("y", 0)
-          .attr("width", 110)
+          .attr("width", 120)
           .attr("height", 88+10) // +10 to hide the selection line behind
           .attr("fill", "#362A35");
 
@@ -381,9 +312,7 @@ function setupChart2(){
           .attr("y", 27)
           .attr("width", 10)
           .attr("height", 10)
-          .attr("stroke-width", 2)
-          .attr("stroke", "#AEFF55")
-          .attr("fill", "url(#far-warm-gradient)");
+          .attr("fill", "url(#far-warm-radar-gradient)");
 
   svg.select(".area-chart-legend")
         .append("text")
@@ -397,9 +326,7 @@ function setupChart2(){
           .attr("y", 47)
           .attr("width", 10)
           .attr("height", 10)
-          .attr("stroke-width", 2)
-          .attr("stroke", "#1EEEE0")
-          .attr("fill", "url(#near-warm-gradient)");
+          .attr("fill", "url(#near-warm-radar-gradient)");
 
   svg.select(".area-chart-legend")
         .append("text")
@@ -418,7 +345,7 @@ function setupChart2(){
 
   svg.select(".area-chart-legend")
         .append("text")
-        .text("No Adoption")
+        .text("No Adaptation")
         .attr("x", 34)
         .attr("y", 78);
 
