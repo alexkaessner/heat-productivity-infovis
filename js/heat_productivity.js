@@ -222,7 +222,7 @@ gradientNearStroke.append("stop")
 // -----------------------------------------------------------------------------
 // preapare the chart axis
 var xScale = d3.scale.ordinal()
-              .rangeRoundBands([0, width], 0.1); //this creates rounded pixel values and includes a 10% (0.1) margin between the bars
+              .rangeRoundBands([0, width], 0.7); //this creates rounded pixel values and includes a 10% (0.1) margin between the bars
 
 var yScale = d3.scale.linear()
               .range([height, 0]);
@@ -250,6 +250,7 @@ var yAxis = d3.svg.axis()
 var dataAreaChart;
 var detailLevel = "farWarmFuture";
 var selectedCitydataAreaChart;
+var city = "London";
 // -----------------------------------------------------------------------------
 // load the JSON file and draw the chart
 d3.json("data/adverted_losses.json", function(data) {
@@ -263,6 +264,7 @@ d3.json("data/adverted_losses.json", function(data) {
 
   d3.select("#antwerp-dot").on("click", function(){
         selectedCitydataAreaChart = dataAreaChart.totalAntwerp;
+				city = "Antwerp";
         updateChart();
         setupChart1(dataRadarChart.antwerp);
         d3.select(".active-dot").attr("class", "");
@@ -271,6 +273,7 @@ d3.json("data/adverted_losses.json", function(data) {
 
   d3.select("#bilbao-dot").on("click", function(){
         selectedCitydataAreaChart = dataAreaChart.totalBilbao;
+				city = "Bilbao";
         updateChart();
         setupChart1(dataRadarChart.bilbao);
         d3.select(".active-dot").attr("class", "");
@@ -279,6 +282,7 @@ d3.json("data/adverted_losses.json", function(data) {
 
   d3.select("#london-dot").on("click", function(){
         selectedCitydataAreaChart = dataAreaChart.totalLondon;
+				city = "London";
         updateChart();
         setupChart1(dataRadarChart.london);
         d3.select(".active-dot").attr("class", "");
@@ -297,7 +301,7 @@ function setupChart2(){
 	// selectedCityData.farWarmFuture == selectedCityData[„farWarmFuture“]
 	// this allows me to select the far or near future via a string/variable
   xScale.domain( dataAreaChart.categoryNames );
-  yScale.domain( [d3.max(selectedCityData[detailLevel], function (d){ return +d; }), 0] );
+  yScale.domain( [d3.max(selectedCityData["nearWarmFuture"], function (d){ return +d*1.1; }), 0] );
 
   // DRAW AXIS -----------------------------------------------------------------
   svg.append("g")
@@ -309,49 +313,25 @@ function setupChart2(){
       .call(yAxis);
 
   // DRAW CHART ----------------------------------------------------------------
-	var areaChartOffset = 50;
-  var area = d3.svg.area()
-      .interpolate("cardinal")
-      .x(function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
-      .y1(function(d) { return yScale(d); });
-
-  svg.append("path")
-        .datum(selectedCityData[detailLevel])
+	var barChart = svg.selectAll(".bar")
+				.data(selectedCityData[detailLevel])
+				.enter()
+				.append("rect")
 				.attr("class", function(){
 					if (detailLevel == "farWarmFuture") {
-						return "areaAdvertedLosses farWarm";
+						return "bar areaAdvertedLosses farWarm";
 					}
-					return "areaAdvertedLosses nearWarm";
+					return "bar areaAdvertedLosses nearWarm";
 				})
-        .attr("d", area)
-				.attr("transform", "translate(" + areaChartOffset + ",0)");
-
-	// create the tooltip line
-  var lineChartTooltipLine = svg.append("line")
-        .attr("class", "tooltip-line")
-        .style("opacity", 0)
-        .attr("x1", 0)
-        .attr("y1", 0)
-        .attr("x2", 0)
-        .attr("y2", height+10)
-        .attr("stroke-width", 1)
-        .attr("stroke", "#fff");
-
-  console.log(selectedCityData[detailLevel]);
-  // Add the scatterplot
-    svg.selectAll("dot")
-        .data(selectedCityData[detailLevel])
-    .enter().append("circle")
-        .attr("class", "line-chart-dot")
-        .attr("id", function(d, i){ return "dot"+i; })
-        .attr("r", 5)
-        .attr("cx", function(d, i) { return xScale(dataAreaChart.categoryNames[i]) + areaChartOffset; })
-        .attr("cy", function(d) { return yScale(d); })
-        .on("mouseover", function(d, i) {
+				.attr("x", function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
+				.attr("y", 0)
+				.attr("width", xScale.rangeBand())
+				.attr("height", function(d) { return yScale(d); })
+				.on("mouseover", function(d, i) {
             d3.select(this).classed("hover", true);
             lineChartTooltip.style("opacity", 1);
             //console.log((parseInt(d3.select(this).attr("cx"))), (parseInt(d3.select(this).attr("cy"))));
-            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("cx")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("cy")) + margin.top - 38) + ")");
+            lineChartTooltip.attr("transform", "translate(" + (parseInt(d3.select(this).attr("x")) + margin.left + 10) + "," + (parseInt(d3.select(this).attr("y")) + margin.top - 38) + ")");
             lineChartTooltip.select("text.line-chart-tooltip-h1").text(dataAreaChart.categoryNames[i]);
             lineChartTooltip.select("text.line-chart-tooltip-text").text(function() {
               if (detailLevel == "farWarmFuture") {
@@ -360,14 +340,10 @@ function setupChart2(){
               return "Near Warm Future:"
             });
             lineChartTooltip.select("text.line-chart-tooltip-text2").text(dataFormat(selectedCityData[detailLevel][i]*dataNumberFactor) + "€");
-						lineChartTooltipLine.style("opacity", 1)
-																.attr("x1", parseInt(d3.select(this).attr("cx")))
-																.attr("x2", parseInt(d3.select(this).attr("cx")));
         })
         .on("mouseout", function(d) {
             d3.select(this).classed("hover", false);
             lineChartTooltip.style("opacity", 0).attr("transform", "translate(0,0)");
-						lineChartTooltipLine.style("opacity", 0);
         });
 
   // create reference line
@@ -539,48 +515,34 @@ function setupChart2(){
 function updateChart() {
 
   // Scale the range of the data again
-  xScale.domain( dataAreaChart.categoryNames );
-  yScale.domain( [d3.max(selectedCitydataAreaChart[detailLevel], function (d){ return +d; }), 0] );
+	if (city == "London") {
+		yScale.domain( [d3.max(selectedCitydataAreaChart["nearWarmFuture"], function (d){ return +d*1.1; }), 0] );
+	}else {
+		yScale.domain( [d3.max(selectedCitydataAreaChart["farWarmFuture"], function (d){ return +d*1.1; }), 0] );
+	}
+
 
   // Select the section we want to apply our changes to
   var svg = d3.select("body").transition();
 
-	// crearte the area data string again
-  var area = d3.svg.area()
-    .interpolate("cardinal")
-    .x(function(d, i) { return xScale(dataAreaChart.categoryNames[i]); })
-    .y1(function(d) { return yScale(d); });
+	// draw the bar chart again
+	d3.selectAll(".bar")
+			.data(selectedCitydataAreaChart[detailLevel])
+			.transition()
+			.duration(updateDuration)
+			.attr("class", function(){
+				if (detailLevel == "farWarmFuture") {
+					return "bar areaAdvertedLosses farWarm";
+				}
+				return "bar areaAdvertedLosses nearWarm";
+			})
+			.attr("height", function(d) { return yScale(d); });
 
-  svg.selectAll(".referenceLine")
-        .duration(updateDuration)
-        .attr("y1", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); })
-        .attr("y2", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); });
-  svg.selectAll(".areaAdvertedLosses")
-      	.duration(updateDuration)
-				.attr("class", function(){
-					if (detailLevel == "farWarmFuture") {
-						return "areaAdvertedLosses farWarm";
-					}
-					return "areaAdvertedLosses nearWarm";
-				})
-        .attr("d", area(selectedCitydataAreaChart[detailLevel]));
+	svg.selectAll(".referenceLine")
+	        .duration(updateDuration)
+	        .attr("y1", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); })
+	        .attr("y2", function() { return yScale(selectedCitydataAreaChart[detailLevel.replace("Future","Loss")]); });
 
-  selectedCitydataAreaChart[detailLevel].forEach(function(e, i){
-    console.log(e);
-    d3.selectAll("#dot"+i)
-        .classed("nearWarmDot", function (d, i) {
-          if (detailLevel == "farWarmFuture") {
-						return false;
-					}
-					return true;
-        })
-        .transition()
-        .duration(updateDuration)
-        .attr("cy", function(d) { return yScale(e); });
-  })
-  svg.select(".x.axis")
-      .duration(updateDuration)
-      .call(xAxis);
   svg.select(".y.axis")
       .duration(updateDuration)
       .call(yAxis);
