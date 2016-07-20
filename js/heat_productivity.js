@@ -359,7 +359,7 @@ function setupChart2(){
               }
               return "Near Warm Future:"
             });
-            lineChartTooltip.select("text.line-chart-tooltip-text2").text(dataFormat(d*dataNumberFactor) + "€");
+            lineChartTooltip.select("text.line-chart-tooltip-text2").text(dataFormat(selectedCityData[detailLevel][i]*dataNumberFactor) + "€");
 						lineChartTooltipLine.style("opacity", 1)
 																.attr("x1", parseInt(d3.select(this).attr("cx")))
 																.attr("x2", parseInt(d3.select(this).attr("cx")));
