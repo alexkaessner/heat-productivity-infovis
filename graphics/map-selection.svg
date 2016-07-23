@@ -31,7 +31,7 @@
             </g>
             <polyline id="Arrow" stroke-opacity="0.5" stroke="#FFFFFF" points="30 155 0 200.000001 30 245"></polyline>
             <text id="Select-a-city-to-vie" opacity="0.5" font-family="WorkSans-Regular, Work Sans" font-size="12" font-weight="normal" letter-spacing="0.384000003" fill="#FFFFFF">
-                <tspan x="112.372" y="429">Select a city to view the damage and adverted losses</tspan>
+                <tspan x="116.446" y="429">Select a city to view the damage and averted losses</tspan>
             </text>
         </g>
     </g>
