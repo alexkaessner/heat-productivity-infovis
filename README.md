@@ -1,4 +1,8 @@
-# Climate Change Information Visualization
+# Impact of growing cities
+Cities are growing, but also getting hotter every year. How does this impact people's productivity?
+
+## Climate Change Information Visualization
+
 This is my final project for the [Information Visualization](https://incom.org/workspace/6609) course by [Prof. Dr. Marian Dörk](http://mariandoerk.de). It's a visualization of the climate impact for the increasing urbanization, population productivity and the increasing heat wave days in cities.
 
 ## Data Sources
