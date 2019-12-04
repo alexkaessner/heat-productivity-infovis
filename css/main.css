@@ -16,7 +16,7 @@ a {
 
 a:hover {
   color: white;
-  text-decoration: underline;;
+  text-decoration: underline;
 }
 
 h1, h2, h3, p {
@@ -438,4 +438,8 @@ footer .copyright {
   padding-bottom: 10px;
   width: auto;
   font-size: 10px;
+}
+
+footer .copyright a {
+  text-decoration: underline;
 }
